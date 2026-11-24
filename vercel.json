@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/", "destination": "/en/", "permanent": true },
+    { "source": "/en", "destination": "/en/", "permanent": true },
+    { "source": "/ar", "destination": "/ar/", "permanent": true },
+    { "source": "/wolf/en", "destination": "/wolf/en/", "permanent": true },
+    { "source": "/wolf/ar", "destination": "/wolf/ar/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/((?!api/|images/|cover_photos/|Bioinformatics_project_photos/|Biostatistics_project_photos/|stress_prediction_photos/|index.html|style.css|script.js|robots.txt|sitemap.xml).*)", "destination": "/index.html" }
+  ]
+}
