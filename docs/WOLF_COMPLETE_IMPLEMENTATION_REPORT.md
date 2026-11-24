@@ -204,7 +204,7 @@ The current form contains required Name, Email, and Message fields plus an optio
 - Framework: none.
 - Libraries: none installed or imported.
 - Runtime: static HTML/CSS/JavaScript.
-- Local preview: the added `server.js` uses Node’s built-in `http`, `fs`, `path`, and `url` modules; `package.json` exposes `npm start`; `start-local.bat` launches it.
+- Local preview: `local-server.js` uses Node’s built-in `http`, `fs`, `path`, and `url` modules; `package.json` exposes `npm start`; `start-local.bat` launches it.
 - Shared components: no component system; markup is duplicated across root, English, and Arabic HTML.
 - Assets: local images under `public/images/`; Google Fonts loaded remotely.
 - SEO: titles, descriptions, keywords on English root, canonical links, hreflang links, Open Graph title/description/type/image on English pages, `robots.txt`, and `sitemap.xml`.

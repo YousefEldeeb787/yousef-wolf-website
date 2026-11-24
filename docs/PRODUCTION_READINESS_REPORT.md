@@ -8,7 +8,7 @@
 - One repository and one site contain both experiences: Yousef Eldeeb's personal portfolio and WOLF.
 - The frontend is a vanilla HTML/CSS/JavaScript single-page application. `script.js` selects pages from `window.location.pathname` and renders page content client-side; `index.html` is the primary shell.
 - The root, `en/`, and `ar/` directories contain HTML shells. Vercel rewrites application deep links to the root shell, and the client sets the page language and text direction.
-- `server.js` is the local Node.js static preview server and also exposes the contact handler during local development. It is not the production backend.
+- `local-server.js` is the local Node.js static preview server and also exposes the contact handler during local development. It is not the production backend.
 - `api/contact.js` is the Vercel Function entry point. It delegates to `contact-handler.js`, which validates submissions and uses Resend's HTTP API.
 - Static website assets include `public/images/`, `cover_photos/`, and the three research screenshot folders. Other project evidence, screenshots, and documentation remain in the repository but are excluded from the production artifact.
 - There is no database, user authentication, file upload, or separate backend service.
@@ -26,7 +26,7 @@
 |---|---|
 | `npm run build` | **Passed.** Copies only runtime files and required assets into `dist/`. |
 | `npm test` | **Passed:** 4 tests, 0 failures. Covers provider acceptance/rejection, missing configuration, input validation, and rate limiting. |
-| `node --check` on `scripts/build.js`, `script.js`, `server.js`, and `contact-handler.js` | **Passed.** |
+| `node --check` on `scripts/build.js`, `script.js`, `local-server.js`, and `contact-handler.js` | **Passed.** |
 | Vercel configuration and sitemap JSON/XML parsing | **Passed.** The sitemap contains 58 unique URLs on the existing `www.yousefeldeeb.com` hostname. |
 | Lint, type check, dependency audit | **Unavailable/not run.** There are no corresponding project scripts or third-party dependencies/lockfile to audit. |
 | Vercel platform build and production deployment | **Not run.** No project was deployed or changed. |
@@ -85,7 +85,7 @@ The blank [`.env.example`](../.env.example) documents the only provider variable
 | `CONTACT_FROM_EMAIL` | Sender address verified with Resend. |
 | `RESEND_API_KEY` | Resend API credential. Keep secret; never expose it to frontend code. |
 
-No values are supplied or invented. `.env` and `.env.*` are ignored by Git, except the checked-in blank `.env.example`. The local `server.js` does not load `.env` automatically; set local variables in the shell or IDE when testing delivery. Vercel variables must be configured in the existing project's environment settings.
+No values are supplied or invented. `.env` and `.env.*` are ignored by Git, except the checked-in blank `.env.example`. The local `local-server.js` does not load `.env` automatically; set local variables in the shell or IDE when testing delivery. Vercel variables must be configured in the existing project's environment settings.
 
 ## 8. Contact form delivery status
 
@@ -98,7 +98,7 @@ No values are supplied or invented. `.env` and `.env.*` are ignored by Git, exce
 
 ## 9. Hosting recommendation and architecture
 
-Use the **existing Vercel project**, if it is the intended project for this domain. Vercel is appropriate because it can serve the generated static `dist/` artifact and automatically expose `api/contact.js` as a Node.js Function. `server.js` is only for local preview and is not required in production. No second hosting platform or separate backend is needed.
+Use the **existing Vercel project**, if it is the intended project for this domain. Vercel is appropriate because it can serve the generated static `dist/` artifact and automatically expose `api/contact.js` as a Node.js Function. `local-server.js` is only for local preview and is not required in production. No second hosting platform or separate backend is needed.
 
 The repository now sets `buildCommand: "npm run build"` and `outputDirectory: "dist"` in [`vercel.json`](../vercel.json). The API remains at `/api/contact`, outside the static SPA rewrite. This output-directory setting is important because Vercel's “Other” preset can otherwise select the existing `public/` folder and omit the root application shell. See [Vercel build output settings](https://vercel.com/docs/builds/configure-a-build) and [Vercel project configuration](https://vercel.com/docs/project-configuration/vercel-json#outputdirectory).
 
